@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Cards</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 20px;
+            /* background-color: black; */
+            color: white;
+        
+        }
+
+        video#bgVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the entire viewport */
+            z-index: -1; /* Sends the video behind other content */
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            
+            padding: 10px;
+            box-shadow: 2px 2px 10px goldenrod;
+            text-align: center;
+            /* background-color: white; */
+            background-image: url("https://github.com/user-attachments/assets/9b40cd9f-17ff-41ae-ac4c-da63dd86070c");
+            color: black;
+        }
+        .card h2, .card h3, .card p {
+            margin: 10px 0;
+        }
+        .button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .copy-btn {
+            background-color: #2406aa;
+            color: white;
+        }
+        .copy-btn:hover {
+            background-color: #3676ff;
+            color: white;
+            font-size: medium;
+        }
+
+
+        .user-info {
+            margin-top: 20px;
+        }
+        .user-info p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="bgVideo" autoplay muted loop>
+        <source src="https://github.com/user-attachments/assets/a8467063-6a8b-48d4-840a-02f1fea3b1dd">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container">
+        <!-- <a href="{{ url_for('logout') }}" class="btn" style="float: right; margin: 10px; padding: 6px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Logout</a> -->
+        <h1 style="float: left; margin: 10px;">Manage Items</h1>
+        <div style="clear: both;"></div> <!-- To clear the floats -->
+    </div>
+    
+    <!-- Add New Item Form -->
+    <form action="/add" method="POST">
+        <select name="name" required style="margin: 10px; padding: 5px; width: 200px;">
+            <option value="" disabled selected>Choose Item Name</option>
+            <option value="MakeMY Trip">MakeMY Trip</option>
+            <option value="ZOP- Mens fashion">ZOP- Mens fashion</option>
+            <option value="Adidas">Adidas</option>
+            <option value="My11Circle">My11Circle</option>
+            <option value="Skullcandy TWS">Skullcandy TWS</option>
+            <option value="Lenskart">Lenskart</option>
+            <option value="mCaffeine">mCaffeine</option>
+            <option value="GIVA">GIVA</option>
+            <option value="FASTRACK">FASTRACK</option>
+        </select>
+        <input type="text" name="redeem_code" placeholder="Redeem Code" required style="margin: 10px; padding: 5px; width: 200px;">
+        <button type="submit" style="margin: 10px; padding: 6px 15px; background-color: #2656db; color: white; border: none; border-radius: 5px;">Add Item</button>
+        <a href="{{ url_for('logout') }}" class="btn" style="float: right; margin: 10px; padding: 6px 15px; background-color: #2656db; color: white; text-decoration: none; border-radius: 5px;">Logout</a>
+    </form>
+    <br>
+
+    <div class="card-container">
+        {% for item in items %}
+        <div class="card" id="item-{{ item.id }}">
+            <h2>{{ item.name }}</h2>
+            <h3>Redeem Code: <span style="color: #a71d2a; font-family: Arial, Helvetica, sans-serif">{{ item.redeem_code }}</span></h3>
+            <p style="font-family: Arial, Helvetica, sans-serif;"><b>Added: </b>{{ item.created_at }}</p>
+            <p><b>Copies: </b><span id="count-{{ item.id }}">{{ item.temp_count }}</span></p>
+    
+            {% if item.redeemed %}
+                <button class="button copy-btn" disabled>Already Redeemed</button>
+            {% else %}
+                <button class="button copy-btn" onclick="copyToClipboard('{{ item.redeem_code }}', {{ item.id }})">Copy Code</button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+    <script>
+        function copyToClipboard(redeemCode, itemId) {
+            // Create a temporary textarea element to copy the redeem code
+            var tempInput = document.createElement("input");
+            document.body.appendChild(tempInput);
+            tempInput.value = redeemCode;
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+    
+            // Send an AJAX request to update the copy count in the database
+            fetch(`/copy/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ redeem_code: redeemCode, item_id: itemId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Only update the count and button if the redemption was successful
+                    var countElement = document.getElementById("count-" + itemId);
+                    var button = document.querySelector('#item-' + itemId + ' .copy-btn');
+                    
+                    // Update the copy count on the page
+                    if (countElement) {
+                        var newCount = parseInt(countElement.textContent) + 1;
+                        countElement.textContent = newCount;
+                    }
+    
+                    // Change the button text to "Already Redeemed"
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = 'Already Redeemed';
+                    }
+    
+                    alert("Code copied to clipboard!");
+                } else {
+                    alert(data.message);  // Show the error message (e.g., already redeemed)
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred. Please try again.");
+            });
+        }
+    </script>
+
+</body>
+</html>
