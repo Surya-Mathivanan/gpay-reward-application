@@ -17,14 +17,14 @@ app.secret_key = os.urandom(24)
 login_db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Surya2003@@',
+    'password': '',
     'database': 'login_details'
 }
 
 redeem_db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Surya2003@@',
+    'password': '',
     'database': 'redeemcode_database'
 }
 
