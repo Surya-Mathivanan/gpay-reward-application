@@ -16,6 +16,24 @@ The GPay Reward Application is a web-based system that allows users to log in, r
 - Frontend: HTML, CSS, JavaScript
 - Security: Hashed Passwords (werkzeug.security)
 - Concurrency: Background Thread for Cleanup
+
+## Images:
+### LoginPage
+![Image](https://github.com/user-attachments/assets/3cdf1947-c983-497f-a55d-81a5440605ec)
+### RegisterPage
+![Image](https://github.com/user-attachments/assets/771d5513-d5df-41ca-a1e2-fdf811ee7f18)
+### HomePage
+![Image](https://github.com/user-attachments/assets/110241e4-d2f4-4777-aa6a-995fc121541d)
+### AccountPage
+![Image](https://github.com/user-attachments/assets/95e30b15-08cc-4bbc-8176-506cc81bd8bf)
+### CodeAddingPage
+![Image](https://github.com/user-attachments/assets/b2aa4164-bfaf-4383-83ca-6cad42babd44)
+### DashBoardPage
+![Image](https://github.com/user-attachments/assets/a9c8dfce-a0ee-4019-83ae-55ed493e598c)
+
+
+### ArchivePage
+![Image](https://github.com/user-attachments/assets/587f4268-8f2b-4f48-9d70-abdfb59ee9af)
 ## 📂 Project Structure
 ```
 /gpay-reward-app
