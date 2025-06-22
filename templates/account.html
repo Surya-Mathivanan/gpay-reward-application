@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Account - Google Pay Redeem Codes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar p-0">
+            <div class="p-4">
+                <h4 class="mb-4"><i class="fas fa-gift me-2"></i>Redeem Manager</h4>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('home') }}">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('account') }}">
+                        <i class="fas fa-user me-2"></i>Account
+                    </a>
+                    <a class="nav-link" href="{{ url_for('add_code') }}">
+                        <i class="fas fa-plus me-2"></i>Add Redeem Code
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('archive') }}">
+                        <i class="fas fa-archive me-2"></i>Archive
+                    </a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content p-4">
+            <h2 class="mb-4">Account Information</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body text-center p-5">
+                            <div class="mb-4">
+                                <i class="fas fa-user-circle fa-5x text-primary"></i>
+                            </div>
+                            
+                            <h4 class="card-title mb-3">{{ session.user_name }}</h4>
+                            
+                            <div class="mb-4">
+                                <p class="card-text">
+                                    <i class="fas fa-envelope me-2 text-muted"></i>
+                                    <strong>Email:</strong> {{ session.user_email }}
+                                </p>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <a href="{{ url_for('logout') }}" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div><center>
+                <p style="
+  font-family: 'Courier New', monospace; 
+  font-size: 20px; 
+  margin-top: 40px;
+  color: #d40e0e; 
+ font-weight: bold;
+  white-space: nowrap; 
+  overflow: hidden; 
+  border-right: 2px solid #000000; 
+  width: 0;
+  animation: typing 3s steps(25, end) forwards, blink 0.7s step-end infinite;">
+  Subscription coming soon...
+</p>
+
+<style>
+@keyframes typing {
+  from { width: 0; }
+  to { width: 320px; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+</style>
+            </center>
+            
+        </div>
+        
+    </div>
+
+</style>
+</div>
+{% endblock %}

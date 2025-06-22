@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Add Code - Google Pay Redeem Codes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar p-0">
+            <div class="p-4">
+                <h4 class="mb-4"><i class="fas fa-gift me-2"></i>Redeem Manager</h4>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('home') }}">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
+                    <a class="nav-link" href="{{ url_for('account') }}">
+                        <i class="fas fa-user me-2"></i>Account
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('add_code') }}">
+                        <i class="fas fa-plus me-2"></i>Add Redeem Code
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('archive') }}">
+                        <i class="fas fa-archive me-2"></i>Archive
+                    </a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content p-4">
+            <h2 class="mb-4">Add New Redeem Code</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">
+                                        <i class="fas fa-tag me-2"></i>Code Title
+                                    </label>
+                                    <input type="text" class="form-control" id="title" name="title" 
+                                           placeholder="e.g., Google Pay ₹100 Cashback" required>
+                                    <div class="form-text">Give your redeem code a descriptive title</div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="code" class="form-label">
+                                        <i class="fas fa-key me-2"></i>Redeem Code
+                                    </label>
+                                    <input type="text" class="form-control" id="code" name="code" 
+                                           placeholder="Enter the redeem code" required>
+                                    <div class="form-text">Enter the actual redeem code</div>
+                                </div>
+                                
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-plus me-2"></i>Add Redeem Code
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

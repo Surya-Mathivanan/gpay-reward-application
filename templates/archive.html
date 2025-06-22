@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Archive - Google Pay Redeem Codes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar p-0">
+            <div class="p-4">
+                <h4 class="mb-4"><i class="fas fa-gift me-2"></i>Redeem Manager</h4>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('home') }}">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
+                    <a class="nav-link" href="{{ url_for('account') }}">
+                        <i class="fas fa-user me-2"></i>Account
+                    </a>
+                    <a class="nav-link" href="{{ url_for('add_code') }}">
+                        <i class="fas fa-plus me-2"></i>Add Redeem Code
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('archive') }}">
+                        <i class="fas fa-archive me-2"></i>Archive
+                    </a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Archived Codes</h2>
+                <span class="badge bg-secondary fs-6">{{ archived_codes|length }} Archived Codes</span>
+            </div>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                This page shows codes that are no longer active - either expired (older than 7 days) or exhausted (more than 5 copies).
+            </div>
+            
+            {% if archived_codes %}
+                <div class="row">
+                    {% for code in archived_codes %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100" style="opacity: 0.7;">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title text-muted">{{ code[1] }}</h5>
+                                        <span class="badge {% if code[7] == 'Expired' %}bg-warning{% else %}bg-danger{% endif %}">
+                                            {{ code[7] }}
+                                        </span>
+                                    </div>
+                                    <div class="code-display mb-3" style="background: #e9ecef; border-left-color: #6c757d;">
+                                        {{ code[2] }}
+                                    </div>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            <i class="fas fa-user me-1"></i>Added by: {{ code[4] }}<br>
+                                            <i class="fas fa-calendar me-1"></i>Date: {{ code[3].strftime('%Y-%m-%d %H:%M') }}
+                                        </small>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-copy me-1"></i>Final Copies: {{ code[5] }}
+                                        </span>
+                                        <button class="btn btn-secondary btn-sm" disabled>
+                                            <i class="fas fa-archive me-1"></i>Archived
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-archive fa-5x text-muted mb-3"></i>
+                    <h4 class="text-muted">No archived codes</h4>
+                    <p class="text-muted">Codes will appear here when they expire or reach the copy limit.</p>
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Google Pay Redeem Codes{% endblock %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+        <div class="col-md-6 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="text-center text-white">
+                <i class="fas fa-user-plus fa-5x mb-4"></i>
+                <h2>Join Our Community</h2>
+                <p class="lead">Create an account to start managing your redeem codes</p>
+                <p style="
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  animation: blink 1s infinite;
+">
+  ⚠️ WARNING: Misuse of this platform will lead to automatic termination!
+</p>
+
+<style>
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+@media only screen and (max-width: 600px) {
+    #uldata {
+        list-style-type: none;
+        text-align: center;
+        margin-left: 0;
+    
+  }
+
+    
+}
+</style>
+<ul id="uldata" style="list-style-type: none;text-align: left;justify-content: center; padding-left: 20px; font-family: Arial, sans-serif; font-size: 16px; color: #ffffff; background-color: 8px; padding: 15px;">
+  <li style="margin-bottom: 10px;">👉 The redeem code you copied may already have been used.</li>
+  <li style="margin-bottom: 10px;">👉 Don’t worry — try using another code.</li>
+  <li style="margin-bottom: 10px;">👉 Avoid unnecessary copying.</li>
+  <li style="margin-bottom: 10px;">👉 Warning to those who misuse:</li>
+  <li style="margin-bottom: 10px;">👉 Our AI system monitors user activity. If misuse is detected, the user will be terminated automatically.</li>
+  <li style="margin-bottom: 10px;">👉 All activities are stored in our database.</li>
+  <li style="margin-bottom: 10px;">👉 Use the code wisely and make the best use of it.</li>
+</ul>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="card shadow-lg" style="width: 400px;">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">Register</h3>
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 mb-3">Register</button>
+                    </form>
+                    
+                    <div class="text-center">
+                        <p>Already have an account? <a href="{{ url_for('login') }}" class="text-decoration-none">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

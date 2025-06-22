@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Google Pay Redeem Codes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar p-0">
+            <div class="p-4">
+                <h4 class="mb-4"><i class="fas fa-gift me-2"></i>Redeem Manager</h4>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('home') }}">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
+                    <a class="nav-link" href="{{ url_for('account') }}">
+                        <i class="fas fa-user me-2"></i>Account
+                    </a>
+                    <a class="nav-link" href="{{ url_for('add_code') }}">
+                        <i class="fas fa-plus me-2"></i>Add Redeem Code
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('dashboard') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('archive') }}">
+                        <i class="fas fa-archive me-2"></i>Archive
+                    </a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content p-4">
+            <h2 class="mb-4">Dashboard</h2>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body p-4">
+                            <i class="fas fa-copy fa-3x text-primary mb-3"></i>
+                            <h3 class="card-title">{{ total_copies }}</h3>
+                            <p class="card-text text-muted">Total Codes Copied</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body p-4">
+                            <i class="fas fa-plus-circle fa-3x text-success mb-3"></i>
+                            <h3 class="card-title">{{ added_codes }}</h3>
+                            <p class="card-text text-muted">Codes Added by You</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-info-circle me-2"></i>Your Activity Summary
+                            </h5>
+                            <p class="card-text">
+                                You have copied <strong>{{ total_copies }}</strong> redeem codes and contributed 
+                                <strong>{{ added_codes }}</strong> codes to the community.
+                            </p>
+                            {% if total_copies == 0 and added_codes == 0 %}
+                                <div class="alert alert-info">
+                                    <i class="fas fa-lightbulb me-2"></i>
+                                    Get started by adding your first redeem code or copying codes from other users!
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
