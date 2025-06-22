@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # gpay-reward-card
 
 ## 📌 Project Overview
