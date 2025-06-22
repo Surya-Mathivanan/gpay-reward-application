@@ -3,4 +3,5 @@ mysql-connector-python==8.1.0
 Werkzeug==2.3.7
 rembg
 pillow
-gunicorn
+gunicorn==21.2.0
+python-dotenv==1.0.1
