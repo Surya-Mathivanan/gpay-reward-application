@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this'
 
-# Database configuration
+# Database configuration using environment variables
 DB_CONFIG = {
     'host': os.getenv("DB_HOST"),
     'user': os.getenv("DB_USERNAME"),
@@ -18,7 +18,6 @@ DB_CONFIG = {
 }
 
 def get_db_connection():
-    """Get database connection"""
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
         return connection
@@ -27,15 +26,12 @@ def get_db_connection():
         return None
 
 def init_database():
-    """Initialize database and create tables"""
+    """Create tables inside already selected database"""
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
-        
-        # Create database if not exists
-        cursor.execute("CREATE DATABASE IF NOT EXISTS redeem_codes_db")
-        cursor.execute("USE redeem_codes_db")
-        
+
+        # Don't create or switch database — DB is fixed in Render/Aiven
         # Create users table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
@@ -59,7 +55,7 @@ def init_database():
             )
         """)
         
-        # Create copies table to track who copied what
+        # Create copies table
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS copies (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,16 +73,16 @@ def init_database():
         connection.close()
         print("Database initialized successfully!")
 
+# The rest of your routes and logic are untouched below:
+
 @app.route('/')
 def index():
-    """Redirect to login page"""
     if 'user_id' in session:
         return redirect(url_for('home'))
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login page"""
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -112,7 +108,6 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    """User registration page"""
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -121,8 +116,6 @@ def register():
         connection = get_db_connection()
         if connection:
             cursor = connection.cursor()
-            
-            # Check if user already exists
             cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
             if cursor.fetchone():
                 flash('Email already registered. Please login.', 'error')
@@ -130,18 +123,13 @@ def register():
                 connection.close()
                 return redirect(url_for('login'))
             
-            # Create new user
             hashed_password = generate_password_hash(password)
-            cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
-                         (name, email, hashed_password))
+            cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
             connection.commit()
-            
-            # Get the new user ID
             user_id = cursor.lastrowid
             cursor.close()
             connection.close()
             
-            # Log in the user
             session['user_id'] = user_id
             session['user_name'] = name
             session['user_email'] = email
@@ -152,16 +140,12 @@ def register():
 
 @app.route('/home')
 def home():
-    """Home page displaying all redeem codes"""
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
-        
-        # Get all redeem codes with copy status for current user, ordered by copy count (ascending)
-        # Exclude codes older than 7 days or with 5 or more copies
         cursor.execute("""
             SELECT rc.id, rc.title, rc.code, rc.created_at, u.name,
                    COUNT(c.id) as total_copies,
@@ -174,26 +158,21 @@ def home():
             HAVING total_copies < 5
             ORDER BY total_copies ASC, rc.created_at DESC
         """, (session['user_id'],))
-        
         redeem_codes = cursor.fetchall()
         cursor.close()
         connection.close()
-        
         return render_template('home.html', redeem_codes=redeem_codes)
     
     return render_template('home.html', redeem_codes=[])
 
 @app.route('/account')
 def account():
-    """Account page"""
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    
     return render_template('account.html')
 
 @app.route('/add_code', methods=['GET', 'POST'])
 def add_code():
-    """Add redeem code page"""
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
@@ -209,7 +188,6 @@ def add_code():
             connection.commit()
             cursor.close()
             connection.close()
-            
             flash('Redeem code added successfully!', 'success')
             return redirect(url_for('home'))
     
@@ -217,40 +195,30 @@ def add_code():
 
 @app.route('/dashboard')
 def dashboard():
-    """Dashboard page showing user statistics"""
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
-        
-        # Get user's copy statistics
         cursor.execute("SELECT COUNT(*) FROM copies WHERE user_id = %s", (session['user_id'],))
         total_copies = cursor.fetchone()[0]
-        
-        # Get user's added codes count
         cursor.execute("SELECT COUNT(*) FROM redeem_codes WHERE user_id = %s", (session['user_id'],))
         added_codes = cursor.fetchone()[0]
-        
         cursor.close()
         connection.close()
-        
         return render_template('dashboard.html', total_copies=total_copies, added_codes=added_codes)
     
     return render_template('dashboard.html', total_copies=0, added_codes=0)
 
 @app.route('/archive')
 def archive():
-    """Archive page showing expired and exhausted codes"""
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
-        
-        # Get archived codes (older than 7 days OR 5 or more copies)
         cursor.execute("""
             SELECT rc.id, rc.title, rc.code, rc.created_at, u.name,
                    COUNT(c.id) as total_copies,
@@ -273,18 +241,15 @@ def archive():
             GROUP BY rc.id, rc.title, rc.code, rc.created_at, u.name
             ORDER BY rc.created_at DESC
         """, (session['user_id'],))
-        
         archived_codes = cursor.fetchall()
         cursor.close()
         connection.close()
-        
         return render_template('archive.html', archived_codes=archived_codes)
     
     return render_template('archive.html', archived_codes=[])
 
 @app.route('/copy_code', methods=['POST'])
 def copy_code():
-    """Handle code copying"""
     if 'user_id' not in session:
         return jsonify({'success': False, 'message': 'Not logged in'})
     
@@ -293,8 +258,6 @@ def copy_code():
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
-        
-        # First check if the code has already reached the limit
         cursor.execute("SELECT COUNT(*) FROM copies WHERE redeem_code_id = %s", (redeem_code_id,))
         current_copies = cursor.fetchone()[0]
 
@@ -304,22 +267,15 @@ def copy_code():
             return jsonify({'success': False, 'message': 'Copy limit reached'})
         
         try:
-            # Insert copy record (will fail if already exists due to unique constraint)
             cursor.execute("INSERT INTO copies (user_id, redeem_code_id) VALUES (%s, %s)",
                          (session['user_id'], redeem_code_id))
             connection.commit()
-            
-            # Get updated copy count
             cursor.execute("SELECT COUNT(*) FROM copies WHERE redeem_code_id = %s", (redeem_code_id,))
             copy_count = cursor.fetchone()[0]
-            
             cursor.close()
             connection.close()
-            
             return jsonify({'success': True, 'copy_count': copy_count})
-            
         except mysql.connector.IntegrityError:
-            # User already copied this code
             cursor.close()
             connection.close()
             return jsonify({'success': False, 'message': 'Already copied'})
@@ -328,7 +284,6 @@ def copy_code():
 
 @app.route('/logout')
 def logout():
-    """Logout user"""
     session.clear()
     flash('Logged out successfully!', 'success')
     return redirect(url_for('login'))
