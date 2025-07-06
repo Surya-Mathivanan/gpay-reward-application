@@ -3,25 +3,46 @@
 ## 📌 Project Overview
 The GPay Reward Application is a web-based system that allows users to log in, register, and redeem rewards using a unique redeem code system. The platform ensures secure user authentication, tracks redeemed codes, and automatically deletes expired rewards to maintain a clean database.
 
-- ✅ User Authentication (Login, Register, Logout)
-- 🔐 Secure Password Storage (using `werkzeug.security`)
-- 🔄 Redeem Code Management (Add, View, Copy)
-- 🧠 Intelligent Misuse Detection System:
-  - Rapid copy pattern detection
-  - Automatic user suspension until end of day
-  - Logging of misuse attempts
-- 📊 Dashboard to track:
-  - Total codes added
-  - Total codes copied
-- 🕵️ Copy Limit Restriction:
-  - Max 5 copies per redeem code
-  - One copy per user
-- 📁 Archive Page:
-  - Displays expired or exhausted codes
-  - Status: Active / Expired / Exhausted
-- 👁️‍🗨️ Misuse Logs & Suspension History Tracking
-- 🔐 Session-based Access Control
-- 🧹 Automatic Table Initialization on First Run
+- ✅ **User Authentication (Login, Register, Logout)**  
+  Enables users to securely create accounts, log in to access features, and log out to protect session data. Ensures only verified users can access the platform.
+
+- 🔐 **Secure Password Storage (using `werkzeug.security`)**  
+  Protects user credentials by storing passwords as cryptographic hashes instead of plain text, enhancing security against data breaches.
+
+- 🔄 **Redeem Code Management (Add, View, Copy)**  
+  Allows users to add new redeem codes with titles, view available codes from others, and copy them within defined limits.
+
+- 🧠 **Intelligent Misuse Detection System**  
+  Prevents abuse and ensures fair usage:
+  - Detects rapid copy attempts that resemble bot behavior
+  - Automatically suspends accounts until the end of the day if misuse is detected
+  - Logs all misuse attempts for transparency and future analysis
+
+- 📊 **Dashboard to Track User Activity**  
+  Gives users insight into their usage patterns by showing:
+  - Number of codes they’ve added
+  - Number of codes they’ve copied
+
+- 🕵️ **Copy Limit Restriction**  
+  Maintains code fairness:
+  - A maximum of 5 users can copy a code
+  - Each user can copy a specific code only once
+
+- 📁 **Archive Page for Code History**  
+  Displays codes that are no longer active due to:
+  - Expiration (older than 7 days)
+  - Exhaustion (already copied 5 times)  
+  Helps users track old and unavailable codes along with their status: **Active**, **Expired**, or **Exhausted**.
+
+- 👁️‍🗨️ **Misuse Logs & Suspension History Tracking**  
+  Administrators or the system can monitor suspicious behavior, with logs showing when users were suspended and the reasons behind it.
+
+- 🔐 **Session-Based Access Control**  
+  Ensures secure access to user-specific pages and operations. Only logged-in users can view or perform actions on sensitive pages like add, copy, or view dashboard.
+
+- 🧹 **Automatic Table Initialization on First Run**  
+  Simplifies deployment by creating all necessary tables when the app runs for the first time. No need for manual SQL execution during setup.
+
 
 ## 🛠️ Tech Stack
 - Backend: Flask (Python)
