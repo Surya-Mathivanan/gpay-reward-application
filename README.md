@@ -23,13 +23,13 @@ The GPay Reward Application is a web-based system that allows users to log in, r
 ### RegisterPage
 ![Image](https://github.com/user-attachments/assets/771d5513-d5df-41ca-a1e2-fdf811ee7f18)
 ### HomePage
-![Image](https://github.com/user-attachments/assets/110241e4-d2f4-4777-aa6a-995fc121541d)
+<img width="1366" height="765" alt="Image" src="https://github.com/user-attachments/assets/669f72d1-43e5-476a-8cd7-cd06759ff1bb" />
 ### AccountPage
 ![Image](https://github.com/user-attachments/assets/95e30b15-08cc-4bbc-8176-506cc81bd8bf)
 ### CodeAddingPage
-![Image](https://github.com/user-attachments/assets/b2aa4164-bfaf-4383-83ca-6cad42babd44)
+<img width="1366" height="765" alt="Image" src="https://github.com/user-attachments/assets/1728571d-de53-41c9-b757-4c6d1e706944" />
 ### DashBoardPage
-![Image](https://github.com/user-attachments/assets/a9c8dfce-a0ee-4019-83ae-55ed493e598c)
+<img width="1366" height="765" alt="Image" src="https://github.com/user-attachments/assets/e27510bb-3cc5-45c1-a724-d4cc6f0e15fe" />
 
 
 ### ArchivePage
