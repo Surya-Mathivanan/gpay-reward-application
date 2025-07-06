@@ -25,7 +25,7 @@ The GPay Reward Application is a web-based system that allows users to log in, r
 ### HomePage
 <img width="1366" height="765" alt="Image" src="https://github.com/user-attachments/assets/669f72d1-43e5-476a-8cd7-cd06759ff1bb" />
 ### AccountPage
-![Image](https://github.com/user-attachments/assets/95e30b15-08cc-4bbc-8176-506cc81bd8bf)
+<img width="1366" height="765" alt="Image" src="[https://github.com/user-attachments/assets/1728571d-de53-41c9-b757-4c6d1e706944](https://github-production-user-asset-6210df.s3.amazonaws.com/153536787/457637871-95e30b15-08cc-4bbc-8176-506cc81bd8bf.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250706%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250706T141721Z&X-Amz-Expires=300&X-Amz-Signature=34b0541f6be4a1d1f51eb0d6f6289e2f52ae393d0cb96df7b761f38b2accb55c&X-Amz-SignedHeaders=host)" />
 ### CodeAddingPage
 <img width="1366" height="765" alt="Image" src="https://github.com/user-attachments/assets/1728571d-de53-41c9-b757-4c6d1e706944" />
 ### DashBoardPage
