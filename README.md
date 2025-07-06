@@ -3,13 +3,26 @@
 ## 📌 Project Overview
 The GPay Reward Application is a web-based system that allows users to log in, register, and redeem rewards using a unique redeem code system. The platform ensures secure user authentication, tracks redeemed codes, and automatically deletes expired rewards to maintain a clean database.
 
-## 🚀 Features
-- User Authentication (Login, Register, Logout)
-- Secure Password Storage (Using werkzeug.security)
-- Redeem Code Management
-- Auto Deletion of Expired Items (Using a background thread)
-- Session-Based Access Control
-- Database Transactions with Retry Mechanism
+- ✅ User Authentication (Login, Register, Logout)
+- 🔐 Secure Password Storage (using `werkzeug.security`)
+- 🔄 Redeem Code Management (Add, View, Copy)
+- 🧠 Intelligent Misuse Detection System:
+  - Rapid copy pattern detection
+  - Automatic user suspension until end of day
+  - Logging of misuse attempts
+- 📊 Dashboard to track:
+  - Total codes added
+  - Total codes copied
+- 🕵️ Copy Limit Restriction:
+  - Max 5 copies per redeem code
+  - One copy per user
+- 📁 Archive Page:
+  - Displays expired or exhausted codes
+  - Status: Active / Expired / Exhausted
+- 👁️‍🗨️ Misuse Logs & Suspension History Tracking
+- 🔐 Session-based Access Control
+- 🧹 Automatic Table Initialization on First Run
+
 ## 🛠️ Tech Stack
 - Backend: Flask (Python)
 - Database: MySQL
