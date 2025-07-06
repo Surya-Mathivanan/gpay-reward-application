@@ -8,7 +8,9 @@
         <!-- Sidebar -->
         <div class="col-md-3 col-lg-2 sidebar p-0">
             <div class="p-4">
-                <h4 class="mb-4"><i class="fas fa-gift me-2"></i>Redeem Manager</h4>
+                 <h4 style="margin-bottom: 20px;">
+                <i class="fas fa-gift" style="margin-left: 65px; color: #000000; font-size: 24px;"></i>
+                </h4>
                 <nav class="nav flex-column">
                     <a class="nav-link" href="{{ url_for('home') }}">
                         <i class="fas fa-home me-2"></i>Home
@@ -38,7 +40,8 @@
             
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="card">
+                    <!-- UPDATED: Using Uiverse dark card -->
+                    <div class="uiverse-card2-responsive">
                         <div class="card-body text-center p-5">
                             <div class="mb-4">
                                 <i class="fas fa-user-circle fa-5x text-primary"></i>
@@ -62,37 +65,36 @@
                     </div>
                 </div>
                 
-            </div><center>
+            </div>
+            <center>
                 <p style="
-  font-family: 'Courier New', monospace; 
-  font-size: 20px; 
-  margin-top: 40px;
-  color: #d40e0e; 
- font-weight: bold;
-  white-space: nowrap; 
-  overflow: hidden; 
-  border-right: 2px solid #000000; 
-  width: 0;
-  animation: typing 3s steps(25, end) forwards, blink 0.7s step-end infinite;">
-  Subscription coming soon...
-</p>
+                  font-family: 'Courier New', monospace; 
+                  font-size: 20px; 
+                  margin-top: 40px;
+                  color: #d40e0e; 
+                 font-weight: bold;
+                  white-space: nowrap; 
+                  overflow: hidden; 
+                  border-right: 2px solid #000000; 
+                  width: 0;
+                  animation: typing 3s steps(25, end) forwards, blink 0.7s step-end infinite;">
+                  Subscription coming soon...
+                </p>
 
-<style>
-@keyframes typing {
-  from { width: 0; }
-  to { width: 320px; }
-}
+                <style>
+                @keyframes typing {
+                  from { width: 0; }
+                  to { width: 320px; }
+                }
 
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-</style>
+                @keyframes blink {
+                  50% { border-color: transparent; }
+                }
+                </style>
             </center>
             
         </div>
         
     </div>
-
-</style>
 </div>
 {% endblock %}

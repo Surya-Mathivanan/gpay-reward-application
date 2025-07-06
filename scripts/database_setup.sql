@@ -1,6 +1,7 @@
 -- Create database
 CREATE DATABASE IF NOT EXISTS redeem_codes_db;
 USE redeem_codes_db;
+-- USE defaultdb;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
@@ -8,7 +9,9 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_suspended BOOLEAN DEFAULT FALSE,
+    suspended_until DATETIME DEFAULT NULL
 );
 
 -- Create redeem_codes table

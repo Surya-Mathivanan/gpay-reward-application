@@ -1,57 +1,115 @@
-{% extends "base.html" %}
-
-{% block title %}Login - Google Pay Redeem Codes{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Login - Google Pay Redeem Codes{%
+endblock %} {% block content %}
 <div class="container-fluid vh-100">
-    <div class="row h-100">
-        <div class="col-md-6 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-            <div class="text-center text-white">
-                <i class="fas fa-gift fa-5x mb-4"></i>
-                <h2>Welcome to Redeem Code Manager</h2>
-                <p class="lead">Manage and share your Google Pay redeem codes easily</p>
-<ul style="list-style-type: none; padding-left: 20px; font-family: Arial, sans-serif; font-size: 16px; color: #ffffff;">
-  <li style="margin-bottom: 8px;">👉This platform is free for users.</li>
-  <li style="margin-bottom: 8px;">👉Anyone can post their redeem code.</li>
-  <li style="margin-bottom: 8px;">👉Anyone can use it easily.</li>
-</ul>
-
-            </div>
-        </div>
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <div class="card shadow-lg" style="width: 400px;">
-                <div class="card-body p-5">
-                    <h3 class="card-title text-center mb-4">Login</h3>
-                    
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            {% for category, message in messages %}
-                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                    
-                    <form method="POST">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-                    </form>
-                    
-                    <div class="text-center">
-                        <p>Don't have an account? <a href="{{ url_for('register') }}" class="text-decoration-none">Register here</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row h-100">
+    <div
+      class="col-md-6 d-flex align-items-center justify-content-center"
+      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    >
+      <div class="text-center text-white">
+        <i class="fas fa-gift fa-5x mb-4"></i>
+        <h2>Welcome to Redeem Code Manager</h2>
+        <p class="lead">Manage and share your Google Pay redeem codes easily</p>
+        <ul
+          style="
+            list-style-type: none;
+            padding-left: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+  
+            color: #ffffff;
+          "
+        >
+          <li style="margin-bottom: 8px ; align-items: left;">This platform is free for users.</li>
+          <li style="margin-bottom: 8px; align-items: left;">
+            Anyone can post their redeem code.
+          </li>
+          <li style="margin-bottom: 8px; align-items: left;">Anyone can use it easily.</li>
+        </ul>
+      </div>
     </div>
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <div class="card shadow-lg" style="width: 400px">
+        <div class="card-body p-5">
+          <h3 class="card-title text-center mb-4">Login</h3>
+
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %}
+          <div
+            class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+          >
+            {{ message }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+            ></button>
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+
+          <form method="POST">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="togglePassword"
+                  tabindex="-1"
+                >
+                  <span id="togglePasswordText">Show</span>
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+              Login
+            </button>
+          </form>
+
+          <div class="text-center">
+            <p>
+              Don't have an account?
+              <a href="{{ url_for('register') }}" class="text-decoration-none"
+                >Register here</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% endblock %} {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const togglePasswordText = document.getElementById('togglePasswordText');
+
+    togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Toggle the button text
+        togglePasswordText.textContent = type === 'password' ? 'Show' : 'Hide';
+    });
+});
+</script>
 {% endblock %}

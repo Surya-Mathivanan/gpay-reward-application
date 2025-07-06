@@ -7,17 +7,136 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        
+        /* Uiverse.io Card Styles */
+        .uiverse-card {
+            width: 190px;
+            height: 254px;
+            background-image: linear-gradient(163deg, #000000 0%, #cfced6 100%);
+            border-radius: 20px;
+            transition: all .3s;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .uiverse-card2 {
+            width: 190px;
+            height: 254px;
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            transition: all .2s;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .uiverse-card2:hover {
+            transform: scale(0.98);
+            border-radius: 20px;
+        }
+
+        .uiverse-card:hover {
+            box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+        }
+
+        /* Responsive versions for your grid */
+        .uiverse-card-responsive {
+            background-image: linear-gradient(163deg, #cdcdce 0%, #ffffff 100%);
+            border-radius: 20px;
+            transition: all .3s;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+        }
+
+        .uiverse-card-responsive:hover {
+            box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+            transform: translateY(-3px);
+        }
+
+        .uiverse-card2-responsive {
+            background-color: #928f8f;
+            border-radius: 20px;
+            transition: all .2s;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+        }
+
+        .uiverse-card2-responsive:hover {
+            transform: scale(0.98);
+        }
+
+        /* Card content styling for better visibility */
+        .uiverse-card .card-body,
+        .uiverse-card-responsive .card-body {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 8px;
+            border-radius: 15px;
+            height: calc(100% - 6px);
+            backdrop-filter: blur(10px);
+            &:hover{
+                background: rgb(174, 255, 235)
+            }
+        }
+
+        .uiverse-card2 .card-body,
+        .uiverse-card2-responsive .card-body {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 8px;
+            border-radius: 15px;
+            height: calc(100% - 16px);
+            color: #333;
+        }
+
+        /* Blur effect styles */
+        .code-display.blurred {
+            filter: blur(4px);
+            user-select: none;
+            pointer-events: none;
+            transition: filter 0.3s ease;
+        }
+
+        .code-display {
+            transition: filter 0.3s ease;
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px);
+            border-radius: 0.375rem;
+        }
+
+        .card-body {
+            position: relative;
+        }
+
+        /* Desktop Sidebar */
         .sidebar {
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            position: fixed; top: 0; left: 0;
-            height: 100vh; overflow-y: auto;
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            height: 100vh; 
+            overflow-y: auto;
             z-index: 1000;
             background-color: #113a63; 
             color: rgb(43, 4, 4);
+            transition: transform 0.3s ease;
         }
+        
         .sidebar .nav-link {
             color: rgba(255, 255, 255, 0.8);
             padding: 15px 20px;
@@ -28,25 +147,141 @@
       
         .sidebar .nav-link:hover, .sidebar .nav-link.active {
             background: rgba(92, 4, 58, 0.2);
-            
             color: rgb(255, 255, 255);
             transform: translateX(5px);
         }
+        
         .main-content {
             background: #f8f9fa;
             min-height: 100vh;
             margin-left: 17%;
+            transition: margin-left 0.3s ease;
         }
+        
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 1002;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .mobile-drawer.open {
+            left: 0;
+        }
+        
+        .mobile-drawer-header {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-drawer-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .mobile-drawer-close:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-drawer .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            margin: 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-drawer .nav-link:hover, .mobile-drawer .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: none;
+        }
+        
+        .mobile-drawer .nav-link i {
+            width: 20px;
+            margin-right: 1rem;
+        }
+        
+        /* Backdrop */
+        .mobile-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Original Card Styles (keeping for compatibility) */
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
+        
         .card:hover {
             transform: translateY(-5px);
             background-color: #c5e0fa;
         }
+        
         .btn-copy {
             background: linear-gradient(45deg, #4CAF50, #45a049);
             border: none;
@@ -55,14 +290,17 @@
             color: white;
             transition: all 0.3s ease;
         }
+        
         .btn-copy:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
         }
+        
         .btn-copy:disabled {
             background: #6c757d;
             transform: none;
         }
+        
         .code-display {
             background: rgb(240, 167, 240);
             border-radius: 8px;
@@ -71,49 +309,212 @@
             font-weight: bold;
             border-left: 4px solid #4CAF50;
         }
-        @media only screen and (max-width: 600px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        min-height: auto;
-        z-index: 999;
-        padding: 10px 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
+        
+        /* Mobile Responsive */
+        @media only screen and (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding-top: 80px;
+            }
+            
+            .card, .uiverse-card-responsive, .uiverse-card2-responsive {
+                margin: 10px 0;
+            }
+            
+            .btn-copy {
+                width: 100%;
+                padding: 10px;
+            }
+            
+            .code-display {
+                font-size: 14px;
+            }
+            
+            .container-fluid {
+                padding: 0;
+            }
+            
+            .main-content {
+                padding: 1rem;
+                padding-top: 80px;
+            }
 
-    .sidebar .nav-link {
-        display: inline-block;
-        padding: 10px 15px;
-        margin: 3px 5px;
-        font-size: 14px;
-    }
-
-    .main-content {
-        margin-left: 0;
-        padding-top: 10px;
-    }
-
-    .card {
-        margin: 10px 0;
-    }
-
-    .btn-copy {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .code-display {
-        font-size: 14px;
-    }
-}
+            /* Make Uiverse cards responsive on mobile */
+            .uiverse-card, .uiverse-card2 {
+                width: 100%;
+                height: auto;
+                min-height: 250px;
+            }
+        }
+        
+        @media only screen and (max-width: 576px) {
+            .mobile-drawer {
+                width: 280px;
+                left: -280px;
+            }
+            
+            .main-content {
+                padding: 0.5rem;
+                padding-top: 80px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h5 class="mb-0">
+            <i class="fas fa-gift me-2"></i>Redeem Manager
+        </h5>
+        <div style="width: 40px;"></div> <!-- Spacer for centering -->
+    </div>
+    
+    <!-- Mobile Backdrop -->
+    <div class="mobile-backdrop" id="mobileBackdrop"></div>
+    
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <h5 class="mb-0">
+                <i class="fas fa-gift me-2"></i>Menu
+            </h5>
+            <button class="mobile-drawer-close" id="mobileDrawerClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="{{ url_for('home') }}">
+                <i class="fas fa-home"></i>Home
+            </a>
+            <a class="nav-link" href="{{ url_for('add_code') }}">
+                <i class="fas fa-plus"></i>Add Redeem Code
+            </a>
+            <a class="nav-link" href="{{ url_for('dashboard') }}">
+                <i class="fas fa-chart-bar"></i>Dashboard
+            </a>
+            <a class="nav-link" href="{{ url_for('archive') }}">
+                <i class="fas fa-archive"></i>Archive
+            </a>
+            <a class="nav-link" href="{{ url_for('account') }}">
+                <i class="fas fa-user"></i>Account
+            </a>
+            <a class="nav-link" href="#" onclick="showComingSoon('Contact')">
+                <i class="fas fa-envelope"></i>Contact
+            </a>
+            <a class="nav-link" href="{{ url_for('logout') }}">
+                <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+        </nav>
+    </div>
+
     {% block content %}{% endblock %}
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Mobile Drawer JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileDrawer = document.getElementById('mobileDrawer');
+            const mobileBackdrop = document.getElementById('mobileBackdrop');
+            const mobileDrawerClose = document.getElementById('mobileDrawerClose');
+            
+            // Open drawer
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileDrawer.classList.add('open');
+                mobileBackdrop.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+            
+            // Close drawer
+            function closeDrawer() {
+                mobileDrawer.classList.remove('open');
+                mobileBackdrop.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+            
+            mobileDrawerClose.addEventListener('click', closeDrawer);
+            mobileBackdrop.addEventListener('click', closeDrawer);
+            
+            // Close drawer when clicking on nav links
+            const navLinks = mobileDrawer.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Only close if it's not a coming soon link
+                    if (!this.getAttribute('onclick')) {
+                        closeDrawer();
+                    }
+                });
+            });
+            
+            // Handle escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+                    closeDrawer();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeDrawer();
+                }
+            });
+            
+            // Set active nav link
+            const currentPath = window.location.pathname;
+            const mobileNavLinks = mobileDrawer.querySelectorAll('.nav-link');
+            mobileNavLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Coming soon functionality
+        function showComingSoon(feature) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-info alert-dismissible fade show position-fixed';
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.maxWidth = '300px';
+            alert.innerHTML = `
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>${feature}</strong> feature is coming soon!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            // Auto remove alert after 3 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 3000);
+            
+            // Close drawer
+            const mobileDrawer = document.getElementById('mobileDrawer');
+            const mobileBackdrop = document.getElementById('mobileBackdrop');
+            mobileDrawer.classList.remove('open');
+            mobileBackdrop.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    </script>
+    
     {% block scripts %}{% endblock %}
 </body>
 </html>
