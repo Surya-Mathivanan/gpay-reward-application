@@ -3,6 +3,8 @@
 ## 📌 Project Overview
 The GPay Reward Application is a web-based system that allows users to log in, register, and redeem rewards using a unique redeem code system. The platform ensures secure user authentication, tracks redeemed codes, and automatically deletes expired rewards to maintain a clean database.
 
+## 🚀 Features
+
 - ✅ **User Authentication (Login, Register, Logout)**  
   Enables users to securely create accounts, log in to access features, and log out to protect session data. Ensures only verified users can access the platform.
 
