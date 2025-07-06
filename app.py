@@ -11,7 +11,7 @@ app.secret_key = 'your-secret-key-change-this'
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Surya2003@@',
+    'password': '*********',
     'database': 'redeem_codes_db'
 }
 
