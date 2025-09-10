@@ -9,7 +9,7 @@
         <div class="col-md-3 col-lg-2 sidebar p-0">
             <div class="p-4">
                 <h4 style="margin-bottom: 20px;">
-                <i class="fas fa-gift" style="margin-left: 65px; color: #000000; font-size: 24px;"></i>
+                <i class="fas fa-gift" style="margin-left: 65px; color: #ffffff; font-size: 24px;"></i>
                 </h4>
                 <nav class="nav flex-column">
                     <a class="nav-link active" href="{{ url_for('home') }}">
@@ -148,6 +148,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
+            // Show loading animation
+            showLoading();
+            
             // Copy to clipboard
             navigator.clipboard.writeText(code).then(() => {
                 // Send request to server to track the copy
@@ -162,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // Hide loading animation
+                    hideLoading();
                     if (data.success) {
                         // Update copy count
                         const copyCountElement = document.getElementById(`copy-count-${codeId}`);
@@ -207,10 +212,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(error => {
+                    // Hide loading animation on error
+                    hideLoading();
                     console.error('Error:', error);
                     showAlert('danger', 'An error occurred while copying the code.');
                 });
             }).catch(err => {
+                // Hide loading animation on clipboard error
+                hideLoading();
                 console.error('Failed to copy code:', err);
                 showAlert('danger', 'Failed to copy code to clipboard.');
             });
